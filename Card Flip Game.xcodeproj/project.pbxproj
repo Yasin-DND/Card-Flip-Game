@@ -16,6 +16,7 @@
 		045AE93024EC440D00D2EB79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 045AE92E24EC440D00D2EB79 /* LaunchScreen.storyboard */; };
 		045AE93B24EC440D00D2EB79 /* Card_Flip_GameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045AE93A24EC440D00D2EB79 /* Card_Flip_GameTests.swift */; };
 		045AE94624EC440D00D2EB79 /* Card_Flip_GameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045AE94524EC440D00D2EB79 /* Card_Flip_GameUITests.swift */; };
+		04919C3024ED49E600A7A59A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04919C2F24ED49E600A7A59A /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		045AE94124EC440D00D2EB79 /* Card Flip GameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Card Flip GameUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		045AE94524EC440D00D2EB79 /* Card_Flip_GameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card_Flip_GameUITests.swift; sourceTree = "<group>"; };
 		045AE94724EC440D00D2EB79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04919C2F24ED49E600A7A59A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				045AE92024EC440C00D2EB79 /* AppDelegate.swift */,
 				045AE92224EC440C00D2EB79 /* SceneDelegate.swift */,
+				04919C2F24ED49E600A7A59A /* CardView.swift */,
 				045AE92724EC440C00D2EB79 /* ContentView.swift */,
 				045AE92924EC440D00D2EB79 /* Assets.xcassets */,
 				045AE92E24EC440D00D2EB79 /* LaunchScreen.storyboard */,
@@ -274,6 +277,7 @@
 				045AE92324EC440C00D2EB79 /* SceneDelegate.swift in Sources */,
 				045AE92824EC440C00D2EB79 /* ContentView.swift in Sources */,
 				045AE92624EC440C00D2EB79 /* Card_Flip_Game.xcdatamodeld in Sources */,
+				04919C3024ED49E600A7A59A /* CardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
