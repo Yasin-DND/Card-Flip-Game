@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var images = ["apple" , "cherry" , "star"]
     @State private var indexs = Array(repeating: 0, count: 9)
     @State private var credits = 1000
-    @State private var backgrounds = Array(repeating: Color.white, count: 9)
+    @State private var backgrounds = Array(repeating: Color.black, count: 9)
     @State private var matches = 0
     //Attributes
     private var betAmount = 5
@@ -21,26 +21,26 @@ struct ContentView: View {
     var body: some View {
         ZStack{
             Rectangle()
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .edgesIgnoringSafeArea(.all)
             
             Rectangle()
-                .foregroundColor(.black).opacity(0.9)
+                .foregroundColor(.white).opacity(0.9)
                 .rotationEffect(Angle(degrees: 90))
                 .edgesIgnoringSafeArea(.all)
             VStack{
                 HStack{
                     Image(systemName:"star.fill")
-                    
                     Text("SwiftUI Slots")
                         .bold()
                     Image(systemName:"star.fill")
-                }.scaleEffect(2)
+                }.foregroundColor(.white)
+                    .scaleEffect(2)
                     .offset(y :-50)
                 Text("Credits : \(String(credits))")
                     .foregroundColor(.white)
                     .padding(.all,10)
-                    .background(Color.black.opacity(0.4))
+                    .background(Color.white.opacity(0.4))
                     .cornerRadius(20)
                     .offset(x: 122,y : -30)
                 VStack{
@@ -52,7 +52,7 @@ struct ContentView: View {
                         CardView(symbol: $images[indexs[2]], background: $backgrounds[2])
                         
                         Spacer()
-                    }.offset(y : -30)
+                    }.offset(y : -20)
                     HStack{
                         Spacer()
                         
@@ -61,7 +61,7 @@ struct ContentView: View {
                         CardView(symbol: $images[indexs[5]], background: $backgrounds[5])
                         
                         Spacer()
-                    }.offset(y : -30)
+                    }.offset(y : -20)
                     HStack{
                         Spacer()
                         
@@ -70,7 +70,7 @@ struct ContentView: View {
                         CardView(symbol: $images[indexs[8]], background: $backgrounds[8])
                         
                         Spacer()
-                    }.offset(y : -30)
+                    }.offset(y : -20)
                     
                     
                 }
@@ -83,7 +83,7 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .padding(.all,10)
                             .padding([.leading,.trailing], 30)
-                            .background(Color.black.opacity(0.4))
+                            .background(Color.white.opacity(0.4))
                             .cornerRadius(20)
                         
                     }.offset(y : 20)
@@ -96,10 +96,11 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .padding(.all,10)
                             .padding([.leading,.trailing], 30)
-                            .background(Color.black.opacity(0.4))
+                            .background(Color.white.opacity(0.4))
                             .cornerRadius(20)
                         
                     }.offset(y : 20)
+                        .scaledToFit()
                     
                 }
             }
@@ -111,12 +112,12 @@ struct ContentView: View {
         self.indexs[4] = Int.random(in: 0...images.count - 1)
         self.indexs[5] = Int.random(in: 0...images.count - 1)
         //Check Images and Update Score
-        if match(indexs[3], indexs[4], indexs[5]){
+        if match(3 , 4 , 5){
             self.credits += self.betAmount * 50
         }
         else{
             self.backgrounds = self.backgrounds.map{ _ in
-                Color.white
+                Color.black
             }
             self.credits -= self.betAmount
         }
@@ -126,11 +127,18 @@ struct ContentView: View {
         self.indexs = self.indexs.map{ _ in
             Int.random(in: 0...images.count - 1)
         }
-        match(indexs[0], indexs[4], indexs[8])
-        match(indexs[0], indexs[3], indexs[6])
-        match(indexs[2], indexs[4], indexs[6])
-        match(indexs[2], indexs[5], indexs[8])
+        match(0 , 4 , 8)
+        match(0 , 3 , 6)
+        match(2 , 4 , 6)
+        match(2 , 5 , 8)
+        match(1 , 4 , 7)
+        match(0 , 1 , 2)
+        print(matches)
         if matches == 0{
+            self.backgrounds = self.backgrounds.map{ _ in
+                Color.black
+            }
+            
             self.credits -= self.betAmount * 50
         }else{
             self.credits += self.betAmount * 500 * matches
@@ -138,7 +146,8 @@ struct ContentView: View {
         
     }
     func match(_ x : Int , _ y : Int , _ z : Int)->Bool{
-        if x == y && y == z{
+        if indexs[x] == indexs[y] && indexs[y] == indexs[z]{
+            print(x,y,z)
             self.matches += 1
             changeBackground(x, y, z)
             return true
@@ -147,9 +156,10 @@ struct ContentView: View {
         }
     }
     func changeBackground(_ x : Int , _ y : Int , _ z : Int){
-        backgrounds[x] = Color.green.opacity(0.9)
-        backgrounds[y] = Color.green.opacity(0.9)
-        backgrounds[z] = Color.green.opacity(0.9)
+        print(x,y,z)
+        backgrounds[x] = Color.green
+        backgrounds[y] = Color.green
+        backgrounds[z] = Color.green
     }
 }
 
