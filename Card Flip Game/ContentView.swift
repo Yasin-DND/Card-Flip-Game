@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var indexs = Array(repeating: 0, count: 9)
     @State private var credits = 1000
     @State private var backgrounds = Array(repeating: Color.white, count: 9)
+    @State private var matches = 0
     //Attributes
     private var betAmount = 5
     
@@ -25,7 +26,6 @@ struct ContentView: View {
             
             Rectangle()
                 .foregroundColor(.black).opacity(0.9)
-                //.foregroundColor(Color(red: 0.75, green: 0.1, blue: 0.3))
                 .rotationEffect(Angle(degrees: 90))
                 .edgesIgnoringSafeArea(.all)
             VStack{
@@ -89,24 +89,7 @@ struct ContentView: View {
                     }.offset(y : 20)
                     Button(action: {
                         //Index Generation and update of images
-                        self.indexs = self.indexs.map{ _ in
-                            Int.random(in: 0...self.images.count - 1)
-                        }
-                        //Check Images and Update Score
-                        if self.indexs[0] == self.indexs[1] && self.indexs[1] == self.indexs[2]{
-                            
-                            self.credits += self.betAmount * 500
-                            
-                            self.backgrounds = self.backgrounds.map{ _ in
-                                Color.green
-                            }
-                        }else{
-                            self.backgrounds = self.backgrounds.map{ _ in
-                                Color.white
-                            }
-                            
-                            self.credits -= self.betAmount
-                        }
+                        self.spinForFiveThousand()
                     }) {
                         Text("Spin For $500")
                             .bold()
@@ -124,18 +107,14 @@ struct ContentView: View {
     }
     func spinForFive(){
         //Index Generation and update of images
-        self.indexs = self.indexs.map{ _ in
-            Int.random(in: 0...self.images.count - 1)
-        }
+        self.indexs[3] = Int.random(in: 0...images.count - 1)
+        self.indexs[4] = Int.random(in: 0...images.count - 1)
+        self.indexs[5] = Int.random(in: 0...images.count - 1)
         //Check Images and Update Score
-        if self.indexs[3] == self.indexs[4] && self.indexs[4] == self.indexs[5]{
-            
-            self.credits += self.betAmount * 5
-            
-            self.backgrounds = self.backgrounds.map{ _ in
-                Color.green
-            }
-        }else{
+        if match(indexs[3], indexs[4], indexs[5]){
+            self.credits += self.betAmount * 50
+        }
+        else{
             self.backgrounds = self.backgrounds.map{ _ in
                 Color.white
             }
@@ -143,7 +122,34 @@ struct ContentView: View {
         }
     }
     func spinForFiveThousand(){
+        self.matches = 0
+        self.indexs = self.indexs.map{ _ in
+            Int.random(in: 0...images.count - 1)
+        }
+        match(indexs[0], indexs[4], indexs[8])
+        match(indexs[0], indexs[3], indexs[6])
+        match(indexs[2], indexs[4], indexs[6])
+        match(indexs[2], indexs[5], indexs[8])
+        if matches == 0{
+            self.credits -= self.betAmount * 50
+        }else{
+            self.credits += self.betAmount * 500 * matches
+        }
         
+    }
+    func match(_ x : Int , _ y : Int , _ z : Int)->Bool{
+        if x == y && y == z{
+            self.matches += 1
+            changeBackground(x, y, z)
+            return true
+        }else{
+            return false
+        }
+    }
+    func changeBackground(_ x : Int , _ y : Int , _ z : Int){
+        backgrounds[x] = Color.green.opacity(0.9)
+        backgrounds[y] = Color.green.opacity(0.9)
+        backgrounds[z] = Color.green.opacity(0.9)
     }
 }
 
